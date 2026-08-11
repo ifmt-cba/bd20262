@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -410.7409,
-    "scrollLeft": -48.3498,
+    "scrollTop": -305.7409,
+    "scrollLeft": 0,
     "zoomLevel": 0.97,
     "show": 431,
     "database": 16,
@@ -1697,16 +1697,16 @@
         "comment": "",
         "dataType": "serial",
         "default": "",
-        "options": 8,
+        "options": 10,
         "ui": {
-          "keys": 2,
+          "keys": 3,
           "widthName": 60,
           "widthComment": 60,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1786468810400,
+          "updateAt": 1786469530449,
           "createAt": 1786468798390
         }
       },
@@ -1717,16 +1717,16 @@
         "comment": "",
         "dataType": "serial8",
         "default": "",
-        "options": 8,
+        "options": 10,
         "ui": {
-          "keys": 2,
+          "keys": 3,
           "widthName": 60,
           "widthComment": 60,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1786468805718,
+          "updateAt": 1786469531462,
           "createAt": 1786468805717
         }
       },
@@ -1737,16 +1737,16 @@
         "comment": "",
         "dataType": "char(14)",
         "default": "",
-        "options": 8,
+        "options": 10,
         "ui": {
-          "keys": 2,
+          "keys": 3,
           "widthName": 60,
           "widthComment": 60,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1786468805718,
+          "updateAt": 1786469532529,
           "createAt": 1786468805718
         }
       },
@@ -2168,7 +2168,7 @@
       },
       "VOfwxYyREK1Uh-AO1qB1r": {
         "id": "VOfwxYyREK1Uh-AO1qB1r",
-        "identification": false,
+        "identification": true,
         "relationshipType": 4,
         "startRelationshipType": 2,
         "start": {
@@ -2196,7 +2196,7 @@
       },
       "mXQdExFnSjvBJNuqrgdCd": {
         "id": "mXQdExFnSjvBJNuqrgdCd",
-        "identification": false,
+        "identification": true,
         "relationshipType": 4,
         "startRelationshipType": 2,
         "start": {

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dineug/erd-editor/main/json-schema/schema.json",
+  "version": "3.0.0",
+  "settings": {
+    "width": 2000,
+    "height": 2000,
+    "scrollTop": 0,
+    "scrollLeft": 0,
+    "zoomLevel": 1,
+    "show": 431,
+    "database": 4,
+    "databaseName": "",
+    "canvasType": "ERD",
+    "language": 1,
+    "tableNameCase": 4,
+    "columnNameCase": 2,
+    "bracketType": 1,
+    "relationshipDataTypeSync": true,
+    "relationshipOptimization": false,
+    "columnOrder": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "maxWidthComment": -1,
+    "ignoreSaveSettings": 0
+  },
+  "doc": {
+    "tableIds": [],
+    "relationshipIds": [],
+    "indexIds": [],
+    "memoIds": [
+      "KYSEFyZ9kJ_0JDST2VK_s"
+    ]
+  },
+  "collections": {
+    "tableEntities": {},
+    "tableColumnEntities": {},
+    "relationshipEntities": {},
+    "indexEntities": {},
+    "indexColumnEntities": {},
+    "memoEntities": {
+      "KYSEFyZ9kJ_0JDST2VK_s": {
+        "id": "KYSEFyZ9kJ_0JDST2VK_s",
+        "value": "Controle de manutenção de equipamentos de laboratório.\n\nÉ preciso registrar salas, equipamentos e sua lotação nos espaços físicos.\nFaz-se necessário também poder fazer um controle de manutenção desses equipamentos.\nÉ importante poder saber quem fez a manutenção e a lotação do equipamento para fins de auditoria.\nPor fim é necessário que um equipamento possa ser desativado, ficando lotado em um setor específico para isso.\n",
+        "ui": {
+          "x": 200,
+          "y": 100,
+          "zIndex": 2,
+          "width": 635,
+          "height": 100,
+          "color": ""
+        },
+        "meta": {
+          "updateAt": 1786469867621,
+          "createAt": 1786469856842
+        }
+      }
+    }
+  }
+}
