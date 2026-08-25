@@ -111,3 +111,74 @@ ALTER TABLE manutencao
   ADD CONSTRAINT FK_usuario_TO_manutencao
     FOREIGN KEY (idusuario)
     REFERENCES usuario (id);
+
+-- POPULAR TABELAS DO BANCO DE DADOS UTILIZANDO DML 
+
+INSERT INTO tipo_ambiente (nome, descricao)
+VALUES 
+('Lab de Informática','Laboratório com computadores de uso geral'),
+('Sala de Aula','Sala de aula de uso geral com quadro branco'),
+('Secretaria','Espaço dos dptos para atendimento ao público'),
+('Depósito','Local armazenamento de objetos e equipamentos'),
+('Sala Docente','Espaço para trabalho e repouso de professores');
+
+INSERT INTO ambiente (identificacao,descricao,bloco,andar,localizacao,area,capacidade,idtipo_ambiente)
+VALUES
+('DCOM Lab 01','Para uso de robótica','B',0,NULL,40,35,1),
+('DCOM Lab 02',NULL,'B',0,NULL,30,25,1),
+('DCOM Lab 03',NULL,'B',0,NULL,35,30,1),
+('DCOM Sec','Secretaria do DCOM','B',0,'Ao lado do DCOM Lab 06',40,6,3),
+('DOACAO','Equipamentos para doação ou descarte','A',1,NULL,40,0,4),
+('A-01',NULL,'A',0,NULL,40,35,2);
+
+INSERT INTO tipo_equipamento (nome, descricao)
+VALUES 
+('Computador','Computador de mesa'),
+('Notebook','Computador portátil'),
+('Datashow','Equipamento de projeção'),
+('Impressora','Equipamento de impressão'),
+('Cadeira','Cadeira');
+
+INSERT INTO usuario (nome)
+VALUES
+('João'),
+('Maria'),
+('Pedro');
+
+INSERT INTO equipamento (nome,descricao,valor,patrimoniado,ativo,idtipo_equipamento,idusuario)
+VALUES
+('Sony RMX3','Resolução 1280x720, 500 nits',1923.44,DEFAULT,DEFAULT,3,2),
+('Dell latitude Q2','i5 12 geracao, 256GB SSD, 16GB RAM',4522.88,TRUE,TRUE,1,1),
+('Dell latitude Q2','i5 12 geracao, 256GB SSD, 16GB RAM',4522.88,TRUE,TRUE,1,1),
+('Dell latitude Q2','i5 12 geracao, 256GB SSD, 16GB RAM',4522.88,TRUE,TRUE,1,1),
+('Dell latitude Q2','i5 12 geracao, 256GB SSD, 16GB RAM',4522.88,TRUE,TRUE,1,1),
+('Dell latitude Q2','i5 12 geracao, 256GB SSD, 16GB RAM',4522.88,TRUE,TRUE,1,1),
+('Dell latitude Q2','i5 12 geracao, 256GB SSD, 16GB RAM',4522.88,TRUE,TRUE,1,1),
+('Dell latitude Q2','i5 12 geracao, 256GB SSD, 16GB RAM',4522.88,TRUE,TRUE,1,1),
+('Dell latitude Q2','i5 12 geracao, 256GB SSD, 16GB RAM',4522.88,TRUE,TRUE,1,1),
+('Dell latitude Q2','i5 12 geracao, 256GB SSD, 16GB RAM',4522.88,TRUE,TRUE,1,1),
+('Dell latitude Q2','i5 12 geracao, 256GB SSD, 16GB RAM',4522.88,TRUE,TRUE,1,1),
+('Dell latitude Q2','i5 12 geracao, 256GB SSD, 16GB RAM',4522.88,TRUE,TRUE,1,1),
+('Lenovo Atitude','i7 14 geracao, 256GB SSD, 16GB RAM',4876.11,TRUE,TRUE,2,3),
+('HP Speed2','Laser, 14ppm, preto',3271.49,TRUE,TRUE,4,2);
+
+INSERT INTO lotacao (idambiente,idequipamento,data,idusuario)
+VALUES
+(2,1,'2025-08-25',2),
+(3,2,'2026-01-11',1),
+(3,3,'2026-01-11',1),
+(3,4,'2026-01-11',1),
+(3,5,'2026-01-11',1),
+(3,6,'2026-01-11',1),
+(3,7,'2026-01-11',1),
+(3,8,'2026-01-11',1),
+(3,9,'2026-01-11',1),
+(3,10,'2026-01-11',1),
+(3,11,'2026-01-11',1),
+(3,12,'2026-01-11',1),
+(4,13,'2026-03-20',3),
+(4,14,'2026-08-11',2);
+
+INSERT INTO manutencao (idequipamento,data_entrada,data_saida,descricao_problema,descricao_manutencao,custo,contato,idusuario)
+VALUES
+(14,'2026-08-12','2026-08-12','Não liga','Colocar na tomada',DEFAULT,'Ariovaldo (1234-2222)',1);
