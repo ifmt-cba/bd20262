@@ -177,8 +177,53 @@ VALUES
 (3,11,'2026-01-11',1),
 (3,12,'2026-01-11',1),
 (4,13,'2026-03-20',3),
-(4,14,'2026-08-11',2);
+(4,14,'2026-08-11',2),
+(4,2,'2026-08-20',2);
 
 INSERT INTO manutencao (idequipamento,data_entrada,data_saida,descricao_problema,descricao_manutencao,custo,contato,idusuario)
 VALUES
-(14,'2026-08-12','2026-08-12','Não liga','Colocar na tomada',DEFAULT,'Ariovaldo (1234-2222)',1);
+(14,'2026-08-12','2026-08-12','Não liga','Colocar na tomada',DEFAULT,'Ariovaldo (1234-2222)',1),
+(4,'2026-08-20',NULL,'Bateria não está carregando',NULL,DEFAULT,'Ariovaldo (1234-2222)',2);
+
+-- Faça uma consulta que exiba todos os equipamentos inativos cujo valor seja menor do que 1000.
+SELECT *
+FROM equipamento
+WHERE ativo=FALSE AND valor<1000;
+
+-- Faça uma consulta que exiba todos os equipamentos ativos que ainda não foram patrimoniados
+SELECT *
+FROM equipamento
+WHERE ativo=TRUE AND patrimoniado=FALSE;
+
+-- Faça uma consulta que liste os equipamentos que tenham a palavra datashow na descrição.
+SELECT *
+FROM equipamento
+WHERE UPPER(descricao) LIKE '%DATASHOW%';
+
+-- Faça uma consulta que lista os equipamentos da categoria "Notebook"
+SELECT *
+FROM equipamento
+WHERE idtipo_equipamento = (SELECT id 
+                            FROM tipo_equipamento
+                            WHERE UPPER(nome)='NOTEBOOK');
+
+-- Faça uma consulta que liste a lotação atual do equipamento de código 2
+SELECT identificacao, bloco, andar
+FROM ambiente
+WHERE id= (SELECT idambiente
+          FROM lotacao
+          WHERE idequipamento=2
+          ORDER BY data DESC, id DESC
+          LIMIT 1);
+
+-- Faça uma consulta que liste a identificação do ambiente e o nome do tipo de ambiente 
+-- ordenado por tipo de ambiente
+SELECT t.nome AS tipo, a.identificacao, a.bloco, a.andar, a.area, a.capacidade 
+FROM tipo_ambiente t INNER JOIN ambiente a ON t.id = a.idtipo_ambiente
+ORDER BY t.nome ASC, a.bloco ASC, a.andar ASC;
+
+-- Faça uma consulta que liste os equipamentos (nome, descricao, patrimonio)
+-- que se encontram em manutenção
+SELECT e.id AS patrimonio, e.nome AS equipamento, e.descricao, m.data_entrada AS manutencao_desde 
+FROM equipamento e INNER JOIN manutencao m ON e.id=m.idequipamento
+WHERE m.data_saida IS NULL;
