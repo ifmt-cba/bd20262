@@ -224,6 +224,36 @@ ORDER BY t.nome ASC, a.bloco ASC, a.andar ASC;
 
 -- Faça uma consulta que liste os equipamentos (nome, descricao, patrimonio)
 -- que se encontram em manutenção
-SELECT e.id AS patrimonio, e.nome AS equipamento, e.descricao, m.data_entrada AS manutencao_desde 
+SELECT e.id AS patrimonio, e.nome AS equipamento, e.descricao, m.data_entrada AS manutencao_desde, CURRENT_DATE-m.data_entrada AS qtde_dias  
 FROM equipamento e INNER JOIN manutencao m ON e.id=m.idequipamento
 WHERE m.data_saida IS NULL;
+
+-- Faça uma consulta que liste a lotação atual do equipamento de código 2.
+-- No resultado deverá ser apresentado o nome do tipo de equipamento, 
+-- a identificaçõ do ambiente, bem como o tipo de ambiente e o nome do usuário
+-- que realizou a lotação
+SELECT e.nome AS equipamento, te.nome AS tipo_equipamento, a.identificacao AS ambiente,
+       ta.nome AS tipo_ambiente, u.nome AS lotado_por, l.data as em
+FROM tipo_equipamento te
+INNER JOIN equipamento e      ON te.id = e.idtipo_equipamento
+INNER JOIN lotacao l          ON e.id = l.idequipamento
+INNER JOIN ambiente a         ON a.id = l.idambiente
+INNER JOIN tipo_ambiente ta   ON ta.id = a.idtipo_ambiente
+INNER JOIN usuario u          ON u.id = l.idusuario
+WHERE e.id = 2
+ORDER BY l.data DESC
+LIMIT 1;
+
+-- Faça uma consulta que apresente o menor e o maior valor de equipamento já adquirido
+SELECT MIN(valor)::MONEY, MAX(valor)::MONEY
+FROM equipamento;
+
+-- Faça uma consulta que apresente o nome, a descrição e o tipo de equipamento de maior valor
+
+-- Faça uma consulta que apresente a área total do bloco A
+
+-- Faça uma consulta que apresente a qtde de ambientes do bloco A
+
+-- Faça uma consulta que apresente a média de dias que os equipamentos ficam em manutenção
+
+MIN, MAX, COUNT, SUM, AVG
