@@ -249,11 +249,38 @@ SELECT MIN(valor)::MONEY, MAX(valor)::MONEY
 FROM equipamento;
 
 -- Faça uma consulta que apresente o nome, a descrição e o tipo de equipamento de maior valor
+SELECT e.nome, e.descricao, te.nome AS tipo, e.valor
+FROM tipo_equipamento te
+INNER JOIN equipamento e ON te.id = e.idtipo_equipamento
+WHERE e.valor = (SELECT MAX(valor) FROM equipamento);
 
 -- Faça uma consulta que apresente a área total do bloco A
+SELECT SUM(area) AS TOTAL_BLOCO_A
+FROM ambiente
+WHERE bloco = 'A';
 
 -- Faça uma consulta que apresente a qtde de ambientes do bloco A
+SELECT COUNT(*) AS TOTAL_AMBIENTE_A
+FROM ambiente
+WHERE bloco = 'A';
 
 -- Faça uma consulta que apresente a média de dias que os equipamentos ficam em manutenção
+SELECT AVG(data_saida-data_entrada) AS MEDIA_DIAS_EM_MANUTENCAO
+FROM manutencao
+WHERE data_saida IS NOT NULL;
 
-MIN, MAX, COUNT, SUM, AVG
+-- Faça uma consulta que apresente a qtde de ambientes por bloco
+SELECT bloco, COUNT(bloco) AS qtde_ambientes
+FROM ambiente
+GROUP BY bloco
+ORDER BY bloco;
+
+-- Faça uma consulta que apresente a qtde de equipamentos por 
+-- tipo de equipamento.
+
+-- Faça uma consulta que apresente a qtde de manutenções mês a mês
+
+-- Faça uma consulta que apresente a qtde de equipamentos por ambiente
+
+-- Faça uma consulta que apresente a qtde de operações (lotacao e manutencao)
+-- de cada usuário em um determinado ano/mês.
