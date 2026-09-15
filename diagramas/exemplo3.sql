@@ -277,10 +277,55 @@ ORDER BY bloco;
 
 -- Faça uma consulta que apresente a qtde de equipamentos por 
 -- tipo de equipamento.
+EXPLAIN ANALYZE SELECT te.nome AS tipo, e.qtde
+FROM tipo_equipamento te
+INNER JOIN 
+    (SELECT idtipo_equipamento, COUNT(idtipo_equipamento) AS qtde
+    FROM equipamento
+    GROUP BY idtipo_equipamento) e ON te.id = e.idtipo_equipamento;
+
+EXPLAIN ANALYZE SELECT te.nome, COUNT(te.nome) AS qtde
+FROM tipo_equipamento te
+INNER JOIN equipamento e ON te.id = e.idtipo_equipamento
+GROUP BY te.nome;
 
 -- Faça uma consulta que apresente a qtde de manutenções mês a mês
+SELECT EXTRACT(YEAR FROM data_entrada) AS ano,
+       EXTRACT(MONTH FROM data_entrada) AS mes,
+       COUNT(*) AS qtde
+FROM manutencao
+GROUP BY EXTRACT(YEAR FROM data_entrada), EXTRACT(MONTH FROM data_entrada)
+ORDER BY EXTRACT(YEAR FROM data_entrada), EXTRACT(MONTH FROM data_entrada);
+
+SELECT ano, mes, COUNT(*) AS qtde
+FROM
+  (SELECT EXTRACT(YEAR FROM data_entrada) AS ano,
+          EXTRACT(MONTH FROM data_entrada) AS mes
+  FROM manutencao)
+GROUP BY ano,mes
+ORDER BY ano,mes;
 
 -- Faça uma consulta que apresente a qtde de equipamentos por ambiente
+SELECT a.identificacao, COUNT(a.identificacao) AS qtde_equipamentos
+FROM lotacao lBACKUP DE TODOS OS DATABASES
+
+INNER JOIN 
+  (SELECT idequipamento, MAX(data) as data
+  FROM lotacao
+  GROUP BY idequipamento) l2 ON l.idequipamento = l2.idequipamento AND l.data = l2.data
+INNER JOIN ambiente a ON l.idambiente = a.id
+GROUP BY a.identificacao
+ORDER BY a.identificacao;
 
 -- Faça uma consulta que apresente a qtde de operações (lotacao e manutencao)
 -- de cada usuário em um determinado ano/mês.
+SELECT o.ano, o.mes, u.nome, COUNT(*) AS qtde_operacoes
+FROM
+  (SELECT idusuario, EXTRACT(YEAR FROM data) AS ano, EXTRACT(MONTH FROM data) AS mes
+  FROM lotacao
+  UNION ALL
+  SELECT idusuario, EXTRACT(YEAR FROM data_entrada) AS ano, EXTRACT(MONTH FROM data_entrada) AS mes
+  FROM manutencao) o
+INNER JOIN usuario u ON u.id = o.idusuario
+GROUP BY o.ano, o.mes, u.nome
+ORDER BY o.ano, o.mes, u.nome;
