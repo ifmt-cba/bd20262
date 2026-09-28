@@ -328,4 +328,49 @@ FROM
   FROM manutencao) o
 INNER JOIN usuario u ON u.id = o.idusuario
 GROUP BY o.ano, o.mes, u.nome
-ORDER BY o.ano, o.mes, u.nome;
+HAVING o.ano=2026
+ORDER BY o.ano, o.mes, u.nome
+
+-- Crie um procedimento que retorna a lotação atual de um equipamento
+CREATE OR REPLACE PROCEDURE get_lotacao_atual(
+    IN equipamento_id INT,
+    OUT identificacao VARCHAR(50)
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  SELECT a.identificacao INTO identificacao
+  FROM lotacao l
+  INNER JOIN ambiente a ON a.id = l.idambiente
+  WHERE l.idequipamento = equipamento_id
+  ORDER BY l.data DESC
+  LIMIT 1;
+END;
+$$;
+
+-- Crie uma função que estime a capacidade de pessoas do ambiente baseado na área
+CREATE OR REPLACE FUNCTION estimar_capacidade(
+    area NUMERIC
+)
+RETURNS INT -- Define o tipo de dado que a função vai devolver
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    -- Declaração de variáveis locais
+    capacidade INT;
+BEGIN
+    -- Validação simples para evitar valores negativos
+    IF area < 0 OR area > 9999999999 THEN
+        RAISE EXCEPTION 'A área não pode ser negativa ou de tamanho absurdo!';
+    END IF;
+
+    -- Lógica de cálculo
+    IF area = 0 THEN
+      capacidade = 0;
+    ELSE
+      capacidade := area/1.5;
+    END IF;
+    -- Retorna o resultado final
+    RETURN ROUND(capacidade, 0);
+END;
+$$;
