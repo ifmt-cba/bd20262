@@ -368,9 +368,13 @@ BEGIN
     IF area = 0 THEN
       capacidade = 0;
     ELSE
-      capacidade := area/1.5;
+      capacidade := area*1.5;
     END IF;
     -- Retorna o resultado final
     RETURN ROUND(capacidade, 0);
 END;
 $$;
+
+-- Crie um procedimento que realize a transferência de um equipamento
+-- para outro ambiente ou sala
+
