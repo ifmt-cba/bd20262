@@ -378,3 +378,51 @@ $$;
 -- Crie um procedimento que realize a transferência de um equipamento
 -- para outro ambiente ou sala
 
+-- Crie um gatilho que atualize o campo "ativo" de equipamento observando os critérios:
+-- - Se for para manutenção ativo deve ser false;
+-- - ao sair da manutenção ativo deve ser true;
+-- - ao lotar no ambiente "DOAÇÃO" ativo deve ser false.
+
+CREATE OR REPLACE FUNCTION manutencao_entrada()
+RETURNS trigger AS $manutencao_trigger$
+BEGIN
+    UPDATE equipamento SET ativo=false WHERE idequipamento=NEW.idequipamento;
+    
+    RETURN NEW;
+END;
+$manutencao_trigger$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_manutencao_entrada
+AFTER INSERT ON manutencao
+FOR EACH ROW
+EXECUTE PROCEDURE manutencao_entrada();
+
+CREATE OR REPLACE FUNCTION manutencao_saida()
+RETURNS trigger AS $manutencao_trigger$
+BEGIN
+    IF NEW.data_saida IS NOT NULL THEN
+      UPDATE equipamento SET ativo=true WHERE idequipamento=NEW.idequipamento;
+    END IF;
+    RETURN NEW;
+END;
+$manutencao_trigger$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_manutencao_saida
+AFTER UPDATE ON manutencao
+FOR EACH ROW
+EXECUTE PROCEDURE manutencao_saida();
+
+CREATE OR REPLACE FUNCTION lotacao_doacao()
+RETURNS trigger AS $lotacao_trigger$
+BEGIN
+    IF (SELECT identificacao FROM ambiente WHERE id = NEW.idambiente) = 'DOACAO' THEN
+      UPDATE equipamento SET ativo=false WHERE idequipamento=NEW.idequipamento;
+    END IF;
+    RETURN NEW;
+END;
+$lotacao_trigger$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_lotacao_doacao
+AFTER INSERT ON lotacao
+FOR EACH ROW
+EXECUTE PROCEDURE lotacao_doacao();
